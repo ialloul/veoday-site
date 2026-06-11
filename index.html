@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Veoday — Your playlists. Every screen.</title>
+<meta name="description" content="Veoday is a fast, beautiful IPTV player for iPhone, iPad, Apple TV, Android, and Android TV. Bring your own M3U playlist or Xtream Codes account — Veoday provides no content.">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta property="og:title" content="Veoday — Your playlists. Every screen.">
+<meta property="og:description" content="A fast, beautiful IPTV player for iPhone, iPad, Apple TV, Android, and Android TV. Bring your own playlist.">
+<meta property="og:image" content="https://veoday.com/assets/icon.png">
+<meta property="og:url" content="https://veoday.com">
+<style>
+  :root {
+    --ink: #0B0E17;
+    --surface: #161B28;
+    --raised: #1F2637;
+    --accent: #7F77DD;
+    --accent-soft: rgba(127, 119, 221, .14);
+    --epg: #5DCAA5;
+    --live: #E24B4A;
+    --text: #F4F6FB;
+    --text-2: #9AA3B5;
+    --text-3: #5E687D;
+    --hairline: rgba(255, 255, 255, .08);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--ink);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.55;
+  }
+  a { color: inherit; text-decoration: none; }
+  .wrap { max-width: 1060px; margin: 0 auto; padding: 0 24px; }
+
+  /* nav */
+  nav { display: flex; align-items: center; justify-content: space-between; padding: 22px 0; }
+  .brand { display: flex; align-items: center; gap: 12px; font-size: 20px; font-weight: 700; letter-spacing: -.02em; }
+  .brand img { width: 34px; height: 34px; border-radius: 8px; }
+  .nav-cta {
+    background: var(--raised); border: 1px solid var(--hairline); color: var(--text);
+    padding: 9px 18px; border-radius: 999px; font-size: 14px; font-weight: 600;
+    transition: background .15s ease;
+  }
+  .nav-cta:hover { background: var(--accent); }
+
+  /* hero */
+  header { position: relative; overflow: hidden; }
+  .hero { padding: 84px 0 64px; text-align: center; position: relative; }
+  .hero h1 {
+    font-size: clamp(40px, 7vw, 64px); font-weight: 800; letter-spacing: -.03em; line-height: 1.06;
+  }
+  .hero h1 .dim { color: var(--text-2); }
+  .hero p.sub {
+    margin: 22px auto 0; max-width: 560px; font-size: 18px; color: var(--text-2);
+  }
+  .hero .platforms { margin-top: 18px; font-size: 13.5px; color: var(--text-3); letter-spacing: .04em; text-transform: uppercase; }
+  .cta-row { margin-top: 36px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 9px;
+    padding: 14px 26px; border-radius: 14px; font-size: 16px; font-weight: 650;
+    transition: transform .12s ease, background .15s ease;
+  }
+  .btn:active { transform: scale(.97); }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { background: #8f88e4; }
+  .btn-ghost { background: var(--raised); border: 1px solid var(--hairline); color: var(--text); }
+  .btn-ghost:hover { background: #273048; }
+  .btn small { display: block; font-size: 11.5px; font-weight: 500; color: rgba(255,255,255,.72); text-align: left; }
+
+  /* guide-grid motif */
+  .motif { margin: 64px auto 0; max-width: 880px; border: 1px solid var(--hairline); border-radius: 18px;
+           background: var(--surface); padding: 18px; text-align: left; position: relative; overflow: hidden; }
+  .motif .nowline { position: absolute; top: 14px; bottom: 14px; left: 38%; width: 2px; background: var(--accent); opacity: .85; }
+  .grow { display: grid; grid-template-columns: 132px 1fr; gap: 8px; margin-bottom: 8px; align-items: stretch; }
+  .gch { background: var(--raised); border-radius: 9px; padding: 8px 12px; font-size: 13px; font-weight: 600;
+         display: flex; align-items: center; gap: 8px; white-space: nowrap; overflow: hidden; }
+  .gdot { width: 9px; height: 9px; border-radius: 3px; flex: none; }
+  .gcells { display: flex; gap: 8px; min-width: 0; }
+  .gcell { background: var(--raised); border-radius: 9px; padding: 8px 12px; font-size: 12.5px; color: var(--text-2);
+           overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+  .gcell.on { background: var(--accent-soft); color: var(--text); border: 1px solid rgba(127,119,221,.4); }
+  .gbar { height: 3px; border-radius: 2px; background: var(--epg); width: 38%; margin-top: 6px; }
+  @media (max-width: 560px) { .grow { grid-template-columns: 96px 1fr; } .gch { font-size: 12px; } }
+
+  /* sections */
+  section { padding: 72px 0; }
+  .sec-title { font-size: 30px; font-weight: 750; letter-spacing: -.02em; text-align: center; }
+  .sec-sub { text-align: center; color: var(--text-2); margin-top: 10px; font-size: 16px; }
+
+  .features { margin-top: 44px; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+  .card { background: var(--surface); border: 1px solid var(--hairline); border-radius: 16px; padding: 24px; }
+  .card .ic { width: 38px; height: 38px; border-radius: 10px; background: var(--accent-soft); color: var(--accent);
+              display: flex; align-items: center; justify-content: center; font-size: 18px; margin-bottom: 14px; }
+  .card h3 { font-size: 16.5px; font-weight: 700; margin-bottom: 6px; }
+  .card p { font-size: 14.5px; color: var(--text-2); }
+
+  /* download */
+  .dl-grid { margin-top: 44px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+  .dl { background: var(--surface); border: 1px solid var(--hairline); border-radius: 18px; padding: 30px; }
+  .dl h3 { font-size: 19px; font-weight: 750; }
+  .dl .meta { color: var(--text-3); font-size: 13px; margin-top: 4px; }
+  .dl p { color: var(--text-2); font-size: 14.5px; margin: 14px 0 20px; }
+  .badge { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+           background: var(--accent-soft); color: var(--accent); border-radius: 999px; padding: 4px 10px; margin-left: 8px; vertical-align: 2px; }
+  .badge.soon { background: rgba(93, 202, 165, .14); color: var(--epg); }
+
+  /* policy */
+  .policy { background: var(--surface); border: 1px solid var(--hairline); border-radius: 18px; padding: 30px; }
+  .policy h3 { font-size: 17px; font-weight: 750; margin-bottom: 10px; }
+  .policy p { color: var(--text-2); font-size: 14.5px; }
+
+  footer { border-top: 1px solid var(--hairline); padding: 34px 0 44px; color: var(--text-3); font-size: 13px; }
+  footer .row { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  footer a { color: var(--text-2); }
+  footer a:hover { color: var(--text); }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <nav>
+    <a class="brand" href="#"><img src="assets/icon.png" alt="" width="34" height="34">Veoday</a>
+    <a class="nav-cta" href="#download">Download</a>
+  </nav>
+</div>
+
+<header>
+  <div class="wrap hero">
+    <h1>Your playlists.<br><span class="dim">Every screen.</span></h1>
+    <p class="sub">Veoday is a fast, beautiful IPTV player. Add your own M3U playlist or
+       Xtream&nbsp;Codes account and watch on the devices you already own.</p>
+    <div class="platforms">iPhone &middot; iPad &middot; Apple&nbsp;TV &middot; Android &middot; Android&nbsp;TV</div>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="https://github.com/ialloul/veoday-site/releases/latest/download/veoday-universal.apk">
+        ⬇&nbsp; <span>Download for Android<br><small>Phone · Tablet · TV — free</small></span>
+      </a>
+      <a class="btn btn-ghost" href="#download">
+        <span>Apple platforms<br><small>Beta via TestFlight</small></span>
+      </a>
+    </div>
+
+    <div class="motif" aria-hidden="true">
+      <div class="nowline"></div>
+      <div class="grow">
+        <div class="gch"><span class="gdot" style="background:#E24B4A"></span>News 24</div>
+        <div class="gcells">
+          <div class="gcell" style="flex:2">Morning Brief</div>
+          <div class="gcell on" style="flex:3">World Report<div class="gbar"></div></div>
+          <div class="gcell" style="flex:2.4">Markets Now</div>
+        </div>
+      </div>
+      <div class="grow">
+        <div class="gch"><span class="gdot" style="background:#7F77DD"></span>Cinema One</div>
+        <div class="gcells">
+          <div class="gcell" style="flex:3.4">Night Train</div>
+          <div class="gcell" style="flex:4">The Long Summer</div>
+        </div>
+      </div>
+      <div class="grow" style="margin-bottom:0">
+        <div class="gch"><span class="gdot" style="background:#5DCAA5"></span>Arena Sports</div>
+        <div class="gcells">
+          <div class="gcell" style="flex:2">Highlights</div>
+          <div class="gcell on" style="flex:3.2">Matchday Live<div class="gbar" style="width:62%"></div></div>
+          <div class="gcell" style="flex:2.2">Post-match</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="features">
+  <div class="wrap">
+    <h2 class="sec-title">Built like a real TV experience</h2>
+    <p class="sec-sub">The polish of a native app on every platform — no webviews, no compromises.</p>
+    <div class="features">
+      <div class="card"><div class="ic">📺</div><h3>Live TV with a real guide</h3>
+        <p>Channel folders, instant zapping, and a TiviMate-style EPG timeline grid with now &amp; next from your XMLTV source.</p></div>
+      <div class="card"><div class="ic">🎬</div><h3>Movies &amp; Series</h3>
+        <p>Browse your provider's VOD library with posters, details, seasons and episodes, and Continue Watching that syncs your position.</p></div>
+      <div class="card"><div class="ic">⭐</div><h3>Favorites everywhere</h3>
+        <p>Pin channels into groups, favorite movies and series, and find them on the home shelves of every device.</p></div>
+      <div class="card"><div class="ic">⚡</div><h3>Two engines, zero fuss</h3>
+        <p>A fast modern engine for instant starts, and VLC under the hood for the streams nothing else can play. Automatic fallback.</p></div>
+      <div class="card"><div class="ic">🖥️</div><h3>Made for the big screen</h3>
+        <p>A true 10-foot interface on Apple TV and Android TV — shelves, remote-first navigation, and a full-screen guide.</p></div>
+      <div class="card"><div class="ic">⧉</div><h3>Picture in Picture</h3>
+        <p>Keep watching while you do something else — system PiP on phones and tablets, mini player everywhere.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="download">
+  <div class="wrap">
+    <h2 class="sec-title">Get Veoday</h2>
+    <p class="sec-sub">Free. No account, no tracking — your playlists stay on your device.</p>
+    <div class="dl-grid">
+      <div class="dl">
+        <h3>Android <span class="badge">APK</span></h3>
+        <div class="meta">Phone · Tablet · Android TV — v0.1.0 · Android 7.0+</div>
+        <p>Direct download. Enable “install unknown apps” for your browser or file manager, open the APK, and you’re in.
+           On Android TV, sideload with your favorite tool (e.g. “Send files to TV”).</p>
+        <a class="btn btn-primary" href="https://github.com/ialloul/veoday-site/releases/latest/download/veoday-universal.apk">⬇&nbsp; Download APK</a>
+      </div>
+      <div class="dl">
+        <h3>iPhone · iPad · Apple TV <span class="badge soon">TestFlight</span></h3>
+        <div class="meta">iOS 17+ · tvOS 17+</div>
+        <p>Veoday for Apple platforms is in beta. The App&nbsp;Store release is on its way —
+           check back here for the public TestFlight link.</p>
+        <a class="btn btn-ghost" href="#" aria-disabled="true">Coming soon</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="policy" style="padding-top:0">
+  <div class="wrap">
+    <div class="policy">
+      <h3>Bring your own playlist</h3>
+      <p>Veoday is a media player. It does not include, provide, host, or sell any channels, streams,
+         subscriptions, or other content, and it has no affiliation with any content provider. You supply
+         your own M3U playlist or Xtream&nbsp;Codes account from a source you have the rights to use.
+         You are solely responsible for the content you access through the app.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap row">
+    <div>© 2026 Veoday</div>
+    <div>
+      Plays media with <a href="https://www.videolan.org/vlc/libvlc.html">libVLC</a> © VideoLAN (LGPL-2.1) ·
+      <a href="https://github.com/ialloul/veoday-site/releases">Releases</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
